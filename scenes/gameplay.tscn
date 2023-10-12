@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://cj2hf6i34jb6p"]
+
+[ext_resource type="Script" path="res://scripts/player/PlayerMovement.gd" id="1_bll2y"]
+[ext_resource type="Texture2D" uid="uid://b5dkuxoxv0w7u" path="res://assets/player/player.png" id="1_s72ep"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fhjr4"]
+size = Vector2(16, 16)
+
+[sub_resource type="TileSet" id="TileSet_im64w"]
+tile_size = Vector2i(25, 25)
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(474, 264)
+
+[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("playerCamera", "playerCast")]
+texture_filter = 1
+scale = Vector2(3, 3)
+script = ExtResource("1_bll2y")
+playerCamera = NodePath("Camera2D")
+playerCast = NodePath("RayCast2D")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position_smoothing_enabled = true
+position_smoothing_speed = 20.0
+rotation_smoothing_enabled = true
+rotation_smoothing_speed = 20.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+rotation = 1.5708
+texture = ExtResource("1_s72ep")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_fhjr4")
+
+[node name="RayCast2D" type="RayCast2D" parent="Player"]
+target_position = Vector2(50, 0)
+
+[node name="World" type="TileMap" parent="."]
+position = Vector2(-21, 30)
+tile_set = SubResource("TileSet_im64w")
+cell_quadrant_size = 20
+format = 2
