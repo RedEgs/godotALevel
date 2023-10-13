@@ -12,11 +12,16 @@ size = Vector2(16, 16)
 [node name="Node2D" type="Node2D"]
 position = Vector2(474, 264)
 
-[node name="World" type="TileMap" parent="." node_paths=PackedStringArray("player")]
+[node name="World" type="TileMap" parent="." node_paths=PackedStringArray("player", "label", "label2")]
 tile_set = ExtResource("3_netc8")
 format = 2
 script = ExtResource("4_o60yv")
+chunkSize = 64
+biomeScale = 10
+monitorDistance = null
 player = NodePath("../Player")
+label = NodePath("../Player/Label")
+label2 = NodePath("../Player/Label2")
 
 [node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("playerCamera", "playerCast")]
 texture_filter = 1
@@ -42,3 +47,15 @@ shape = SubResource("RectangleShape2D_fhjr4")
 
 [node name="RayCast2D" type="RayCast2D" parent="Player"]
 target_position = Vector2(50, 0)
+
+[node name="Label" type="Label" parent="Player"]
+offset_left = -154.0
+offset_top = -84.6667
+offset_right = 86.0
+offset_bottom = -61.6667
+
+[node name="Label2" type="Label" parent="Player"]
+offset_left = -153.0
+offset_top = -32.6667
+offset_right = 87.0
+offset_bottom = -9.66666
