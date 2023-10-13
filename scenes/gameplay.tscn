@@ -1,14 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://cj2hf6i34jb6p"]
+[gd_scene load_steps=7 format=3 uid="uid://cj2hf6i34jb6p"]
 
 [ext_resource type="Script" path="res://scripts/player/PlayerMovement.gd" id="1_bll2y"]
 [ext_resource type="Texture2D" uid="uid://b5dkuxoxv0w7u" path="res://assets/player/player.png" id="1_s72ep"]
 [ext_resource type="TileSet" uid="uid://dmjk8oflilayl" path="res://assets/world/worldTileset.tres" id="3_netc8"]
+[ext_resource type="Script" path="res://scenes/CameraHandler.gd" id="4_7lk2j"]
+[ext_resource type="Script" path="res://scenes/WorldGen.gd" id="4_o60yv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fhjr4"]
 size = Vector2(16, 16)
 
 [node name="Node2D" type="Node2D"]
 position = Vector2(474, 264)
+
+[node name="World" type="TileMap" parent="." node_paths=PackedStringArray("player")]
+tile_set = ExtResource("3_netc8")
+format = 2
+script = ExtResource("4_o60yv")
+player = NodePath("../Player")
 
 [node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("playerCamera", "playerCast")]
 texture_filter = 1
@@ -18,10 +26,12 @@ playerCamera = NodePath("Camera2D")
 playerCast = NodePath("RayCast2D")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(0.8, 0.8)
 position_smoothing_enabled = true
 position_smoothing_speed = 20.0
 rotation_smoothing_enabled = true
 rotation_smoothing_speed = 20.0
+script = ExtResource("4_7lk2j")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 rotation = 1.5708
@@ -32,7 +42,3 @@ shape = SubResource("RectangleShape2D_fhjr4")
 
 [node name="RayCast2D" type="RayCast2D" parent="Player"]
 target_position = Vector2(50, 0)
-
-[node name="World" type="TileMap" parent="."]
-tile_set = ExtResource("3_netc8")
-format = 2
